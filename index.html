@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Student Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <h1>🎓 Smart Student Planner</h1>
+        <p>Your study life, organized.</p>
+    </header>
+
+    <main class="dashboard">
+        <section class="welcome">
+            <h2>Welcome, Student! 👋</h2>
+            <p>Plan smart. Study better. Achieve more.</p>
+        </section>
+
+        <section class="stats">
+            <div class="card">
+                <h3>📚 Today's Tasks</h3>
+                <p id="taskCount">0 Tasks</p>
+            </div>
+
+           <div class="card">
+                <h3>✅ Completed</h3>
+                <p id="completedAssignnments">0 Tasks</p>
+            </div>
+
+            <div class="card">
+                <h3>📊 Progress</h3>
+                <p id="progress">0%</p>
+            </div>
+        </section>
+
+        <section class="planner">
+            <h2>📝 Add a Study Task</h2>
+
+            <form id="taskForm">
+                <input
+                    type="text"
+                    id="taskInput"
+                    placeholder="Enter your study task..."
+                    required
+                >
+
+                <select id="subjectInput" required>
+                    <option value="">Choose Subject</option>
+                    <option>Computer Science</option>
+                    <option>Mathematics</option>
+                    <option>English</option>
+                    <option>Physics</option>
+                    <option>Other</option>
+                </select>
+
+                <button type="submit">+ Add Task</button>
+            </form>
+        </section>
+<section class="planner">
+    <h2>📅 My Study Timetable</h2>
+
+    <form id="scheduleForm">
+        <input
+            type="text"
+            id="scheduleSubject"
+            placeholder="Enter subject name"
+            required
+        >
+
+        <input
+            type="time"
+            id="scheduleTime"
+            required
+        >
+
+        <button type="submit">+ Add Schedule</button>
+    </form>
+
+    <ul id="scheduleList"></ul>
+</section>
+       <section class="planner">
+    <h2>📝 Assignment Manager</h2>
+
+    <form id="assignmentForm">
+        <input
+            type="text"
+            id="assignmentName"
+            placeholder="Enter assignment name"
+            required
+        >
+
+        <input
+            type="date"
+            id="assignmentDate"
+            required
+        >
+
+        <button type="submit">+ Add Assignment</button>
+    </form>
+<div id="assignmentSummary">
+    <p>Total Assignments: <span id="totalAssignments">0</span></p>
+    <p>Completed: <span id="completedAssignments">0</span></p>
+    <p>Pending: <span id="pendingAssignments">0</span></p>
+</div><div id="assignmentProgress">
+    <p>Assignment Progress</p>
+    <div class="progress-track">
+        <div id="progressBar">0%</div>
+    </div>
+</div>
+<div class="assignment-filters">
+    <button type="button" class="filter-btn active-filter" data-filter="all">
+    All (<span id="allCount">0</span>)
+</button>
+
+<button type="button" class="filter-btn" data-filter="pending">
+    Pending (<span id="pendingCount">0</span>)
+</button>
+
+<button type="button" class="filter-btn" data-filter="completed">
+    Completed (<span id="completedCount">0</span>)
+</button>
+</div>
+    <ul id="assignmentList"></ul>
+    <!-- Student XP Dashboard -->
+<section class="xp-section">
+    <h2>🏆 My Learning Journey</h2>
+
+    <div class="xp-card">
+        <h3 id="studentLevel">🌱 Level 1 — Beginner</h3>
+        <p id="studentXP">⭐ 0 XP</p>
+
+        <div class="xp-progress-bg">
+            <div id="xpProgressBar"></div>
+        </div>
+
+        <p id="xpProgressText">0 / 100 XP to next level</p>
+        <section class="xp-section">
+    <h2>🏆 My Learning Journey</h2>
+
+    <div class="xp-card">
+        <h3 id="studentLevel">🌱 Level 1 — Beginner</h3>
+        <p id="studentXP">⭐ 0 XP</p>
+
+        <div class="xp-progress-bg">
+            <div id="xpProgressBar"></div>
+        </div>
+
+        <p id="xpProgressText">0 / 100 XP to next level</p>
+    </div>
+</section>
+<section class="study-wheel-section">
+    <h2>🎡 Lucky Study Wheel</h2>
+    <p>Feeling lucky? Spin and discover your next study topic!</p>
+
+    <div class="study-wheel-card">
+        <div id="studyWheel" class="study-wheel">
+            <div class="wheel-center">SPIN</div>
+        </div>
+
+        <button id="spinWheelBtn" type="button">
+            🎲 Spin the Wheel
+        </button>
+
+        <p id="wheelResult" aria-live="polite">
+            Your next study challenge awaits!
+        </p>
+    </div>
+</section>
+<!-- 📚 Homework Submission Tracker -->
+<section class="homework-tracker-section">
+    <h2>📚 Homework Submission Tracker</h2>
+    <p>Track your homework from start to submission!</p>
+
+    <div class="homework-tracker-card">
+        <div id="homeworkReminderBanner" class="homework-reminder-banner" role="status" aria-live="polite" hidden>
+    <span class="reminder-icon">🔔</span>
+    <div class="reminder-message">
+        <strong id="homeworkReminderTitle">Homework Reminder</strong>
+        <p id="homeworkReminderText">Your homework deadline is approaching.</p>
+    </div>
+    <button type="button" id="dismissHomeworkReminder" aria-label="Dismiss reminder">✕</button>
+</div>
+
+<div class="homework-reminder-controls">
+    <button type="button" id="enableHomeworkAlarm">🔊 Enable Alarm Sound</button>
+    <span id="homeworkAlarmStatus">Alarm not enabled</span>
+</div>
+        <form id="homeworkTrackerForm">
+            <label for="trackerHomeworkName">Homework Name</label>
+            <input
+                type="text"
+                id="trackerHomeworkName"
+                placeholder="e.g. Data Structures Assignment"
+                required
+            >
+
+            <label for="trackerSubject">Subject</label>
+            <input
+                type="text"
+                id="trackerSubject"
+                placeholder="e.g. Computer Science"
+                required
+            >
+
+            <label for="trackerStatus">Homework Status</label>
+            <select id="trackerStatus" required>
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Ready to Submit">Ready to Submit</option>
+                <option value="Submitted">Submitted</option>
+            </select>
+
+            <label for="trackerSubmissionDate">Submission Date</label>
+            <input type="date" id="trackerSubmissionDate">
+
+            <label for="trackerNotes">Notes</label>
+            <textarea
+                id="trackerNotes"
+                placeholder="Write homework notes here..."
+                rows="3"
+            ></textarea>
+
+            <button type="submit">➕ Add Homework</button>
+        </form>
+
+        <h3>📝 My Tracked Homework</h3>
+        <div id="homeworkTrackerList">
+            <p>Your tracked homework will appear here.</p>
+        </div>
+    </div>
+</section>
+<!-- 💜 Student Life Planner -->
+<section class="student-life-planner" id="studentLifePlanner">
+    <h2>💜 Student Life Planner</h2>
+    <p>Plan your studies, sleep, meals, fun and every day of your week.</p>
+
+    <div class="planner-week" id="plannerWeek">
+        <button type="button" data-day="Sunday">☀️ Sunday</button>
+        <button type="button" data-day="Monday">💜 Monday</button>
+        <button type="button" data-day="Tuesday">📚 Tuesday</button>
+        <button type="button" data-day="Wednesday">🌸 Wednesday</button>
+        <button type="button" data-day="Thursday">✨ Thursday</button>
+        <button type="button" data-day="Friday">🎧 Friday</button>
+        <button type="button" data-day="Saturday">🎉 Saturday</button>
+    </div>
+
+    <h3 id="plannerSelectedDay">☀️ Sunday Routine</h3>
+
+    <div id="plannerActivities">
+        <p>Select a day to plan your routine.</p>
+    </div>
+
+    <h3>➕ Add an Activity</h3>
+
+    <form id="plannerActivityForm">
+        <label for="plannerActivityName">Activity name</label>
+        <input id="plannerActivityName" type="text"
+               placeholder="e.g. UPSC Geography, lunch, sleep" required>
+
+        <label for="plannerActivityCategory">Category</label>
+        <select id="plannerActivityCategory" required>
+            <option value="Study">📚 Study</option>
+            <option value="College">🎓 College</option>
+            <option value="Sleep">😴 Sleep</option>
+            <option value="Meals">🍽️ Meals</option>
+            <option value="Personal Care">🧴 Personal Care</option>
+            <option value="Exercise">🏃 Exercise</option>
+            <option value="Family">🏡 Family Time</option>
+            <option value="Fun">🎧 Fun & Timepass</option>
+            <option value="Other">✨ Other</option>
+        </select>
+
+        <label for="plannerStartTime">Start time</label>
+        <input id="plannerStartTime" type="time" required>
+
+        <label for="plannerEndTime">End time</label>
+        <input id="plannerEndTime" type="time" required>
+
+        <button type="submit">💖 Add to My Routine</button>
+    </form>
+</section>
+<!-- 🗝️ Mystery Treasure Hunt -->
+<section class="treasure-hunt-section">
+    <h2>🗝️ Mystery Treasure Hunt</h2>
+    <p>Find the hidden clues and unlock your treasure!</p>
+
+    <div class="treasure-card">
+        <div id="treasureChest" class="treasure-chest">
+            🔒
+        </div>
+
+        <h3 id="treasureTitle">The Mystery Chest</h3>
+
+        <p id="treasureClue">
+            🕵️ Your first clue is waiting...
+        </p>
+
+        <button type="button" id="revealClueBtn">
+            🔍 Reveal First Clue
+        </button>
+
+        <button type="button" id="unlockTreasureBtn" disabled>
+            🔐 Unlock Treasure
+        </button>
+
+        <div id="treasureReward" hidden>
+            <h2>🎉 Treasure Unlocked!</h2>
+            <p id="treasureRewardText">
+                You solved the mystery!
+            </p>
+        </div>
+    </div>
+</section>
+    </div>
+</section>
+    <!-- Study Resources Section -->
+<div id="study-resources">
+    <h2>📚 Study Resources</h2>
+    <input
+    type="text"
+    id="resourceSearch"
+    placeholder="Search study resources..."
+>
+    <p id="resourceCount">Showing 3 resources</p>
+    <p id="resourceCompletionCount">0/3 Resources Completed</p>
+<p id="noResources" style="display:none;">
+    No resources found.
+</p>
+    <p>Explore useful resources to improve your knowledge.</p>
+
+    <div class="resource-card">
+        <h3>💻 Learn Programming</h3>
+        <p>Learn programming concepts and practice coding.</p>
+        <a href="https://www.w3schools.com/"
+           target="_blank" rel="noopener noreferrer">
+            Start Learning →
+        </a>
+        <button type="button" class="resource-complete-btn">
+    Mark as Completed ✓
+</button>
+    </div>
+
+    <div class="resource-card">
+        <h3>🌐 Learn Web Development</h3>
+        <p>Explore HTML, CSS and JavaScript tutorials.</p>
+        <a href="https://developer.mozilla.org/"
+           target="_blank" rel="noopener noreferrer">
+            Explore Tutorials →
+        </a>
+        <button type="button" class="resource-complete-btn">
+    Mark as Completed ✓
+</button>
+    </div>
+
+    <div class="resource-card">
+        <h3>🧠 Practice Computer Science</h3>
+        <p>Study computer science topics and programming.</p>
+        <a href="https://www.geeksforgeeks.org/"
+           target="_blank" rel="noopener noreferrer">
+            Study Now →
+        </a>
+        <button type="button" class="resource-complete-btn">
+    Mark as Completed ✓
+</button>
+    </div>
+</div>
+</section>
+<section class="task-section">
+            <h2>📋 My Study Tasks</h2>
+            <ul id="taskList"></ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Made with ❤️ for smarter learning</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
